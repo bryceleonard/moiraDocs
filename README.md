@@ -5,6 +5,7 @@
 MoiraMVP is a revolutionary hybrid healthcare coordination platform that unifies virtual practice appointments with external specialist care through AI-powered analysis and family coordination.
 
 ### Core Capabilities
+- **Premium Phone Onboarding**: Human-assisted enrollment with care coordinator intake calls
 - **Virtual Practice Integration**: Full Healthie EHR integration with Zoom recording
 - **External Care Coordination**: Mobile recording and AI analysis of specialist visits  
 - **Family Dashboard**: View-only family access with intelligent notifications
@@ -15,20 +16,17 @@ MoiraMVP is a revolutionary hybrid healthcare coordination platform that unifies
 
 Our comprehensive data architecture supports real-time healthcare operations while providing powerful analytics for patient insights and family coordination.
 
-### 🗄️ [PostgreSQL Operational Database ERD](docs/moira-postgresql-erd.md)
-**Real-time application operations and patient data management**
+### 📖 **Start Here: Simplified Explanations**
+- 🔗 [**Data Relationships Simplified**](docs/data-relationships-simplified.md) - **Plain English explanation of core relationships**
+- 📊 [**Visual Summary of Key Relationships**](docs/relationships-visual-summary.md) - **Text diagrams and examples**
+- 🌊 [**Data Lake Simplified**](docs/data-lake-simplified.md) - **What the data lake does (plain English)**
+- 📞 [**Phone Onboarding Workflow**](docs/phone-onboarding-workflow.md) - **Premium human-assisted patient enrollment**
+- 🎯 [**Phone Onboarding Flow Guide**](docs/phone-onboarding-flow-simple.md) - **Step-by-step visual guide**
 
-Core tables for user profiles, appointment management, recording sessions, AI analysis, and family access control.
-
-### 📈 [BigQuery Analytics Warehouse ERD](docs/moira-bigquery-erd.md) 
-**Healthcare intelligence and predictive analytics**
-
-Advanced analytics tables for patient health trends, care coordination patterns, and family engagement metrics.
-
-### 🏗️ [Complete System Architecture ERD](docs/moira-complete-data-architecture-erd.md)
-**End-to-end data flow across all systems**
-
-Comprehensive view of data flow from external systems (Healthie EHR, Zoom, mobile apps, wearables) through the data lake to analytics and application layers.
+### 🗄️ **Technical ERD Documentation**
+- 🗄️ [PostgreSQL Operational Database ERD](docs/moira-postgresql-erd.md) - Real-time application operations and patient data management
+- 📈 [BigQuery Analytics Warehouse ERD](docs/moira-bigquery-erd.md) - Healthcare intelligence and predictive analytics
+- 🏗️ [Complete System Architecture ERD](docs/moira-complete-data-architecture-erd.md) - End-to-end data flow across all systems
 
 ## 📋 Documentation Organization
 
@@ -40,6 +38,7 @@ Comprehensive view of data flow from external systems (Healthie EHR, Zoom, mobil
 - 📄 [Hybrid Care User Stories](docs/hybrid-care-user-stories.md) - User stories driving system requirements
 - 📄 [Medical AI Context Requirements](docs/medical-ai-context-requirements.md) - AI safety frameworks and medical context
 - 📄 [Hybrid Healthcare App Architecture](docs/hybrid-healthcare-app-architecture.md) - Mobile app and practice integration architecture
+- 🔐 [Authentication Architecture Analysis](docs/authentication-architecture-analysis.md) - Healthie auth + extended profiles
 - 📄 [Multi-Agent Coordination Framework](docs/multi-agent-coordination-framework.md) - AI agent coordination patterns
 - 📄 [Healthie + Zoom Integration Research](docs/healthie-zoom-integration-research.md) - Technical integration specifications
 
@@ -79,6 +78,7 @@ Comprehensive view of data flow from external systems (Healthie EHR, Zoom, mobil
 - [x] Implementation roadmap and timeline
 
 ### 🏗️ **Ready for Development**
+- [x] **Phone Onboarding System**: Care coordinator dashboard and patient credential delivery
 - [x] **Foundation & Core Build**: PostgreSQL setup, Healthie integration, mobile recording
 - [x] **AI Processing Pipeline**: Medical conversation analysis with safety guardrails  
 - [x] **Analytics Intelligence**: BigQuery functions for health trends and family insights

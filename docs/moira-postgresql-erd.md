@@ -4,8 +4,8 @@
 
 ```mermaid
 erDiagram
-    %% Core User and Patient Management
-    app_user_profiles {
+    %% Core User and Patient Management (Phone Onboarding Architecture)
+    patient_extended_profiles {
         UUID user_id PK
         VARCHAR healthie_patient_id UK "Links to Healthie EHR"
         BOOLEAN audio_recording_consent "Default false"
@@ -13,6 +13,12 @@ erDiagram
         BOOLEAN family_sharing_consent "Default false"
         BOOLEAN healthkit_authorized "Default false"
         TEXT[] authorized_data_types "HealthKit data types"
+        ENUM onboarding_method "phone|self_service - Default phone"
+        VARCHAR onboarding_coordinator "Care coordinator who onboarded patient"
+        TEXT phone_intake_notes "Notes from intake call"
+        BOOLEAN requires_password_reset "Default true for phone onboarding"
+        TIMESTAMP first_login_date "When patient first accessed app"
+        TIMESTAMP onboarding_completed_date "When onboarding finished"
         TIMESTAMP created_at
         TIMESTAMP updated_at
     }
@@ -129,10 +135,25 @@ erDiagram
         TIMESTAMP updated_at
     }
 
+    %% Phone Onboarding Management
+    phone_intake_sessions {
+        UUID intake_id PK
+        UUID patient_id FK "Links to patient_extended_profiles"
+        VARCHAR coordinator_id "Care coordinator ID"
+        TIMESTAMP intake_date "When intake call occurred"
+        INTEGER call_duration_minutes "Length of intake call"
+        TEXT intake_notes "Detailed notes from call"
+        TIMESTAMP follow_up_scheduled "When follow-up call scheduled"
+        TIMESTAMP follow_up_completed "When follow-up completed"
+        ENUM onboarding_status "scheduled|completed|requires_follow_up|cancelled"
+        TIMESTAMP created_at
+    }
+
     %% Relationships
-    app_user_profiles ||--o{ appointment_ai_analysis : "patient has analyses"
-    app_user_profiles ||--o{ actionable_insights : "patient receives insights"
-    app_user_profiles ||--o{ family_dashboard_access : "patient grants family access"
+    patient_extended_profiles ||--o{ appointment_ai_analysis : "patient has analyses"
+    patient_extended_profiles ||--o{ actionable_insights : "patient receives insights"
+    patient_extended_profiles ||--o{ family_dashboard_access : "patient grants family access"
+    patient_extended_profiles ||--o{ phone_intake_sessions : "patient has phone intake session"
     
     appointment_metadata ||--o| appointment_recordings : "appointment may have recording"
     appointment_metadata ||--o{ appointment_ai_analysis : "appointment analyzed by AI"
@@ -144,9 +165,18 @@ erDiagram
 
 ## Key Relationships & Data Flow
 
-### **1. Core Patient Flow**
+### **1. Phone Onboarding Flow**
 ```
-app_user_profiles (Patient)
+phone_intake_sessions (Care coordinator intake call)
+    ↓ (creates)
+patient_extended_profiles (Patient with consents & preferences)
+    ↓ (links to)
+Healthie patient account (EHR identity & authentication)
+```
+
+### **2. Core Patient Flow**
+```
+patient_extended_profiles (Patient)
     ↓ (has appointments)
 appointment_metadata (Healthie appointments)
     ↓ (may have recording)
@@ -155,7 +185,7 @@ appointment_recordings (Audio sessions)
 recording_segments (Pause/resume audio)
 ```
 
-### **2. AI Processing Flow**  
+### **3. AI Processing Flow**  
 ```
 appointment_metadata + appointment_recordings
     ↓ (AI analysis)
@@ -164,9 +194,9 @@ appointment_ai_analysis (Clinical insights)
 actionable_insights (Patient recommendations)
 ```
 
-### **3. Family Access Flow**
+### **4. Family Access Flow**
 ```
-app_user_profiles (Patient)
+patient_extended_profiles (Patient)
     ↓ (grants access to)
 family_dashboard_access (Family member permissions)
     ↓ (can view)
@@ -174,6 +204,12 @@ appointment_metadata + appointment_ai_analysis + actionable_insights
 ```
 
 ## Database Design Principles
+
+### **📞 Phone Onboarding Architecture**
+- **Premium onboarding**: Care coordinators create accounts via phone intake calls
+- **Extended profiles**: Healthie handles auth, our table handles app-specific functionality  
+- **Consent management**: Detailed consent discussions documented during phone calls
+- **Follow-up tracking**: Automated monitoring of patient adoption and engagement
 
 ### **🔗 External System Integration**
 - **`healthie_patient_id`**: Links to Healthie EHR as single source of truth
