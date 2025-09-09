@@ -1,0 +1,119 @@
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.npmrc
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and editor files
+.vscode/
+.cursor/
+*.swp
+*.swo
+*~
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Build outputs
+dist/
+build/
+*.tgz
+*.tar.gz
+
+# Temporary files
+tmp/
+temp/
+
+# OS generated files
+Icon?
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+pip-log.txt
+
+# Ruby
+*.gem
+.bundle/
+.gem/
+
+# Cloud/deployment
+.azure/
+.aws/
+
+# Cache directories
+.cache/
+
+# Shell history
+.bash_history
+.zsh_history
+.zsh_sessions/
+.lesshst
+.viminfo
+
+# Configuration files that might contain secrets
+.claude.json
+.claude.json.backup
+.claude/
+
+# Oh My Zsh
+.oh-my-zsh/
+
+# Swift Package Manager
+.swiftpm/
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+DerivedData/
+*.ipa
+
+# CocoaPods
+.cocoapods/
+
+# Expo
+.expo/
+
+# Zsh completion files
+.zcompdump*
+
+# System profiles
+.profile
+.zshrc.backup
+
+# Exclude parent directory contents (since git status showed ../*)
+../
